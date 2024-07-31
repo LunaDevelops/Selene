@@ -39,6 +39,5 @@ require("./Events.js").forEach(event => {
 })();
 
 
-
 // Client Login \\
 client.login(process.env.TOKEN);
