@@ -26,15 +26,11 @@ class LunarTools
             }
         }, (err, res, body) => {
             if(!err && res.statusCode == 200)
+            {
                 // TODO: Check last commit time
-                switch(JSON.parse(body)[0].commit.message)
-                {
-                    case "test":
-                        this.LastCommit = "Selene is currently in debugging mode, all logs will show below."; return;
-                    case "NoAlert":
-                        this.LastCommit = "NoAlert"; return;
-                    default: this.LastCommit = JSON.parse(body)[0].commit.message; return;
-                }
+                
+                this.LastCommit = JSON.parse(body)[0].commit.message; return;
+            }
         });
     }
 
