@@ -52,18 +52,29 @@ class LunarTools
     }
 
     /**
-     * Activates Selene in debugging / testing mode.
+     * Activates / Deactivates Selene in debugging mode.
      */
     EnableDebugMode()
     {
+        const LunaBleh = this.client.guilds.cache.first().emojis.cache.find(emoji => emoji.name === "LunaBlehh");
+
         this.client.user.setPresence({
             activities: [{
-                name: "Selene is currently in debugging mode.",
-                type: ActivityType.Custom,
-                url: "https://github.com/LunaDevelops/Selene",
-                state: "🌙"
+                name: "With her source code.",
+                type: ActivityType.Playing,
+                state: LunaBleh ? LunaBleh.toString() : "🌙"
             }],
             status: "dnd"
+        });
+    }
+    DisableDebugMode() { 
+        this.client.user.setPresence({
+            activities: [{
+                name: "Over this cosmos.",
+                type: ActivityType.Watching,
+                state: "🌙"
+            }],
+            status: "online"
         })
     }
 }

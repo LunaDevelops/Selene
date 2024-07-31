@@ -52,7 +52,7 @@ const OnReady =
         }, 1000);
 
 
-        await require("util").promisify(setTimeout)(500); // Wait for Github to update before fetching last commit message.
+        await require("util").promisify(setTimeout)(500); selene.DisableDebugMode(); // Wait for Github to update before fetching last commit message.
         switch(selene.LastCommit)
         {
             case "debugging": return selene.EnableDebugMode();
