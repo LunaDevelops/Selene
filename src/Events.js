@@ -63,7 +63,7 @@ const OnReady =
 
             default: {
                 if(!selene.LastCommit == "") {
-                    selene.SendDebugMessage
+                    return selene.SendDebugMessage
                     (
                         "Selene is ready, please review the changelog below for updates.\n\n" + 
                         "***CHANGELOG:***\n" +
@@ -71,8 +71,6 @@ const OnReady =
                         `Current Selene Version: *v2.0*\n` +
                         "Important Selene Updates: *Completely revamped Selene, making source code easier to read and added both /create commands. Youtube implementation is coming soon..*"
                     )
-
-                    return;
                 }
                 
                 selene.SendDebugMessage("An unknown error has occured.. how'd this happen?");
