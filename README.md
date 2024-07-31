@@ -1,4 +1,4 @@
-# ✨🌙 Your Celestial Gaurdian, Selene! 🌙✨
+# ✨🌙 Your Celestial Guardian, Selene! 🌙✨
 Selene is a discord bot that I have created to use for my personal server, to enhance my members' experience and make my server a haven for friendships to blossom.
 <br /><br />
 
