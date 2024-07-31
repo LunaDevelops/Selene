@@ -17,7 +17,7 @@ class LunarTools
     // Private Void; Retrieve the last commit message via GIT API \\
     #RetrieveLastCommit() {
         req({
-            url: 'https://api.github.com/repos/MioDevelops/Selene-DB/commits',
+            url: 'https://api.github.com/repos/LunaDevelops/Selene/commits',
             headers: {
                 'Accept': 'application/vnd.github+json',
                 'Authorization': `Bearer ${process.env.GITAUTH}`,
@@ -56,16 +56,14 @@ class LunarTools
      */
     EnableDebugMode()
     {
-        const LunaBleh = this.client.guilds.cache.first().emojis.cache.find(emoji => emoji.name === "LunaBlehh");
-
         this.client.user.setPresence({
             activities: [{
-                name: "With her source code.",
-                type: ActivityType.Playing,
-                state: LunaBleh ? LunaBleh.toString() : "🌙"
+                name: "Messing with her source code",
+                type: ActivityType.Custom,
+                state: "Messing with her source code"
             }],
             status: "dnd"
-        });
+        })
     }
     DisableDebugMode() { 
         this.client.user.setPresence({

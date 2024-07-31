@@ -53,29 +53,29 @@ const OnReady =
 
 
         await require("util").promisify(setTimeout)(500); selene.DisableDebugMode(); // Wait for Github to update before fetching last commit message.
-        switch(selene.LastCommit)
+        
+        if(selene.LastCommit.includes("debugging"))
+            return selene.EnableDebugMode();
+
+        else if (selene.LastCommit.includes("hotfix"))
+            return selene.SendDebugMessage(selene.LastCommit);
+
+        else if (selene.LastCommit.includes("NoAlert"))
+            return console.log("Selene has started silently.");
+
+        else if(selene.LastCommit !== "")
         {
-            case "debugging": return selene.EnableDebugMode();
-
-            case "hotfix": return selene.SendDebugMessage(selene.LastCommit);
-
-            case "NoAlert": return console.log("Selene has started silently.");
-
-            default: {
-                if(!selene.LastCommit == "") {
-                    return selene.SendDebugMessage
-                    (
-                        "Selene is ready, please review the changelog below for updates.\n\n" + 
-                        "***CHANGELOG:***\n" +
-                        `Commit Message: *${selene.LastCommit}*\n` +
-                        `Current Selene Version: *v2.0*\n` +
-                        "Important Selene Updates: *Completely revamped Selene, making source code easier to read and added both /create commands. Youtube implementation is coming soon..*"
-                    )
-                }
-                
-                selene.SendDebugMessage("An unknown error has occured.. how'd this happen?");
-            }
+            return selene.SendDebugMessage
+            (
+                "Selene is ready, please review the changelog below for updates.\n\n" + 
+                "***CHANGELOG:***\n" +
+                `Commit Message: *${selene.LastCommit}*\n` +
+                `Current Selene Version: *v2.0*\n` +
+                "Important Selene Updates: *Completely revamped Selene, making source code easier to read and added both /create commands. Youtube implementation is coming soon..*"
+            )
         }
+        
+        else return selene.SendDebugMessage("An unknown error has occured.. how'd this happen?");
     }
 }
 

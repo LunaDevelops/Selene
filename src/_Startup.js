@@ -7,7 +7,7 @@ require('dotenv').config(); // DOTENV
 
 // Client Instantiation \\
 const client = new Client({
-    intents: ["Guilds", "GuildMessages", "GuildMessageReactions", "GuildMembers", "DirectMessages", "MessageContent"],
+    intents: ["Guilds", "GuildMessages", "GuildMessageReactions", "GuildMembers", "DirectMessages", "MessageContent", "GuildEmojisAndStickers"],
     partials: [Partials.Channel, Partials.Message, Partials.Reaction]
 });
 
