@@ -68,9 +68,8 @@ class LunarTools
     DisableDebugMode() { 
         this.client.user.setPresence({
             activities: [{
-                name: "Over this cosmos.",
-                type: ActivityType.Watching,
-                state: "🌙"
+                name: "Over this cosmos. 🌙",
+                type: ActivityType.Watching
             }],
             status: "online"
         })
