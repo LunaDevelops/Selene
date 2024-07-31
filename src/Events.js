@@ -25,7 +25,7 @@ const OnReady =
 
 
         // Create timeout for Twitch live streamer check \\
-        let tool = new LunarTools(client);
+        let selene = new LunarTools(client);
         let _LunarAPI = new LunarAPI();
 
         setTimeout(async () => {
@@ -52,23 +52,32 @@ const OnReady =
         }, 1000);
 
 
-        await require("util").promisify(setTimeout)(500);
-        if(tool.LastCommit.includes("debugging") || tool.LastCommit.includes("hotfix")) { tool.SendDebugMessage(tool.LastCommit); return; }
-        else if(tool.LastCommit == "NoAlert") return;
-        else if(!tool.LastCommit == "")
-            {
-                tool.SendDebugMessage
-                (
-                    "Selene is ready, please review the changelog below for updates.\n\n" + 
-                    "***CHANGELOG:***\n" +
-                    `Commit Message: *${tool.LastCommit}*\n` +
-                    `Current Selene Version: *v2.0*\n` +
-                    "Important Selene Updates: *Completely revamped Selene, making source code easier to read and added both /create commands. Youtube implementation is coming soon..*"
-                )
+        await require("util").promisify(setTimeout)(500); // Wait for Github to update before fetching last commit message.
+        switch(selene.LastCommit)
+        {
+            case "debugging": return selene.EnableDebugMode();
 
-                return;
+            case "hotfix": return selene.SendDebugMessage(selene.LastCommit);
+
+            case "NoAlert": return console.log("Selene has started silently.");
+
+            default: {
+                if(!selene.LastCommit == "") {
+                    selene.SendDebugMessage
+                    (
+                        "Selene is ready, please review the changelog below for updates.\n\n" + 
+                        "***CHANGELOG:***\n" +
+                        `Commit Message: *${selene.LastCommit}*\n` +
+                        `Current Selene Version: *v2.0*\n` +
+                        "Important Selene Updates: *Completely revamped Selene, making source code easier to read and added both /create commands. Youtube implementation is coming soon..*"
+                    )
+
+                    return;
+                }
+                
+                selene.SendDebugMessage("An unknown error has occured.. how'd this happen?");
             }
-        else tool.SendDebugMessage("An unknown error has occured.. how'd this happen?");
+        }
     }
 }
 

@@ -1,4 +1,4 @@
-const { Client } = require("discord.js");
+const { Client, ActivityType } = require("discord.js");
 const req = require("request");
 
 class LunarTools
@@ -49,6 +49,22 @@ class LunarTools
         if(!message) return;
         
         this.client.channels.cache.get("1236893338758811742").send(message)
+    }
+
+    /**
+     * Activates Selene in debugging / testing mode.
+     */
+    EnableDebugMode()
+    {
+        this.client.user.setPresence({
+            activities: [{
+                name: "Selene is currently in debugging mode.",
+                type: ActivityType.Custom,
+                url: "https://github.com/LunaDevelops/Selene",
+                state: "🌙"
+            }],
+            status: "dnd"
+        })
     }
 }
 
