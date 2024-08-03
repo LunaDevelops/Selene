@@ -1,5 +1,12 @@
-# ✨🌙 Your Celestial Guardian, Selene! 🌙✨
+# 🌙 Your Celestial Guardian, Selene! 🌙
 Selene is a discord bot that I have created to use for my personal server, to enhance my members' experience and make my server a haven for friendships to blossom.
+<br /><br />
+
+# 💫 Selene's Features 💫
+- Selene sends an embed to a specific channel for any user that comes online through a social media platform. *`src/Events.js; lines 34-52`*
+- Selene automatically applies and removes roles based off user reactions from a specific channel. *`src/Events.js; lines 84-166`*
+- Selene greets new members with an embed in a specific channel. *`src/Events.js; lines 195-209`*
+  - Following this, Selene will also alert the members of *any* special role changes that apply to them, whether from a reaction removal or not. *`src/Events.js; lines 213-229`*
 <br /><br />
 
 # 🌑 Selene's Commands 🌑
