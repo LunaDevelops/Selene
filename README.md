@@ -28,11 +28,12 @@ Most of the commit messages I use are codewords that Selene uses to have certain
 
 ### `"debugging"`: Selene will start in a custom state, members can view this from within Discord by Selene's status and state.<br />
 ### `"hotfix"`: This commit message tells Selene to send a custom Hotfix ticket in the `#alerts` channel.<br />
-### `"NoAlert"`: This tells Selene not to send any messages anywhere, this is usually used for small fixes or changes that I make, that does not impact members experiences.<br /><br /><br />
+### `"NoAlert"`: This tells Selene not to send any messages anywhere, this is usually used for small fixes or changes that I make, that does not impact members experiences.<br /><br />
 Any message that does not include any of these codewords, tells Selene that she should send a `CHANGELOG` ticket in the `#alerts` channel, the changelog includes both the commit message and a custom message
 that explains what was changed or added.<br /><br />
 If Selene is unable to retrieve the last commit message for any reason, from being an expired token to being falsely started elsewhere, she will send me an alert from outside her code as well as sending
 a message in the `#alerts` channel.
+<br /><br />
 
 # 🌟 Contributions 🌟
 Since Selene is open source, I am very limited on how you can contribute. If you'd like, you may fork and make a pull request and add new features or enhancements that you see fit. Your input is always welcome !!
