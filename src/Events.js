@@ -56,6 +56,8 @@ const OnReady =
 
         await require("util").promisify(setTimeout)(1000); selene.DisableDebugMode(); // Wait for Github to update before fetching last commit message.
         
+        console.log(selene.LastCommit);
+        
         if(selene.LastCommit.includes("debugging") || args.includes("--debug"))
             return selene.EnableDebugMode();
 
@@ -75,8 +77,8 @@ const OnReady =
                 "Selene is ready, please review the changelog below for updates.\n\n" + 
                 "***CHANGELOG:***\n" +
                 `Commit Message: *${selene.LastCommit}*\n` +
-                `Current Selene Version: *v2.0*\n` +
-                "Important Selene Updates: *Completely revamped Selene, making source code easier to read and added both /create commands. Youtube implementation is coming soon..*"
+                `Current Selene Version: *v2.1*\n` +
+                "Important Selene Updates: *I have added a function that allows me to properly debug Selene, in doing so I have also added a feature that stops Selene from sending messages in this state.*"
             )
         }
         

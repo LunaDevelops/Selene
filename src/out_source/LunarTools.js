@@ -1,4 +1,4 @@
-const { Client, ActivityType } = require("discord.js");
+const { Client, ActivityType, time } = require("discord.js");
 const req = require("request");
 
 class LunarTools
@@ -27,8 +27,12 @@ class LunarTools
         }, (err, res, body) => {
             if(!err && res.statusCode == 200)
             {
-                // TODO: Check last commit time
+                const commit_time = JSON.parse(body)[0].commit.author.date;
+                const time_diff = Math.abs((new Date() - new Date(commit_time)) / 60000);
                 
+                if(time_diff > 5)
+                    return this.LastCommit = "Restart request completed.";
+
                 this.LastCommit = JSON.parse(body)[0].commit.message; return;
             }
         });
@@ -52,6 +56,9 @@ class LunarTools
      */
     EnableDebugMode()
     {
+        console.log("Selene has entered debugging mode.");
+
+
         this.client.user.setPresence({
             activities: [{
                 name: "Messing with her source code",

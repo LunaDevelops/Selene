@@ -8,6 +8,7 @@ Selene is a discord bot that I have created to use for my personal server, to en
 - Selene greets new members with an embed in a specific channel. *`src/Events.js; lines 195-209`*
   - Following this, Selene will also alert the members of *any* special role changes that apply to them, whether from a reaction removal or not. *`src/Events.js; lines 213-229`*
 - Selene is set to automatically restart daily at 6:00 AM EST through Heroku's app scheduler. *`src/out_source/DynoManager.js`*
+- Selene accepts the argument *`--debug`* which tells her not to make any alerts and/or send any messages. *`src/_Startup.js; lines 18 & 19`*
 <br /><br />
 
 # 🌑 Selene's Commands 🌑
