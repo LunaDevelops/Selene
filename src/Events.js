@@ -9,7 +9,7 @@ const OnReady =
 {
     name: 'ready',
     once: true,
-    async execute(client)
+    async execute(client, ...args)
     {
         console.log(`Logged in as ${client.user.tag} !!`);
 
@@ -28,33 +28,35 @@ const OnReady =
         let selene = new LunarTools(client);
         let _LunarAPI = new LunarAPI();
 
-        setTimeout(async () => {
-            try
-            {
-                setInterval(async () => {
-                    let tmp = await _LunarAPI.GetLiveStreamers();
+        if(!args.includes("--debug"))
+        {
+            setTimeout(async () => {
+                try
+                {
+                    setInterval(async () => {
+                        let tmp = await _LunarAPI.GetLiveStreamers();
+    
+                        tmp.forEach(streamer => {
+                            let tmpEmbed = new EmbedBuilder()
+                                .setColor(Colors.DarkPurple)
+                                .setTitle(`${streamer.title}`)
+                                .setDescription(`**(https://twitch.tv/${streamer.user_name})** is now live on Twitch!`)
+                                .addFields({ name: "Game", value: streamer.game_name})
+                                .setImage(streamer.thumbnail_url.replace('{width}', '860').replace('{height}', '640'))
+                                .setFooter({text: "𝐿𝓊𝓃𝒶𝓇 𝐸𝒸𝓁𝒾𝓅𝓈𝑒™"})
+                                .setTimestamp();
+    
+                            client.guilds.cache.first().channels.cache.get("1236838822885593228").send({ content: `<@&1236890645545746452>`, embeds: [tmpEmbed] })
+                        })
+                    }, 10000)
+                }
+                catch (err) { console.error(err) }
+            }, 1000);
+        }
 
-                    tmp.forEach(streamer => {
-                        let tmpEmbed = new EmbedBuilder()
-                            .setColor(Colors.DarkPurple)
-                            .setTitle(`${streamer.title}`)
-                            .setDescription(`**(https://twitch.tv/${streamer.user_name})** is now live on Twitch!`)
-                            .addFields({ name: "Game", value: streamer.game_name})
-                            .setImage(streamer.thumbnail_url.replace('{width}', '860').replace('{height}', '640'))
-                            .setFooter({text: "𝐿𝓊𝓃𝒶𝓇 𝐸𝒸𝓁𝒾𝓅𝓈𝑒™"})
-                            .setTimestamp();
-
-                        client.guilds.cache.first().channels.cache.get("1236838822885593228").send({ content: `<@&1236890645545746452>`, embeds: [tmpEmbed] })
-                    })
-                }, 10000)
-            }
-            catch (err) { console.error(err) }
-        }, 1000);
-
-
-        await require("util").promisify(setTimeout)(500); selene.DisableDebugMode(); // Wait for Github to update before fetching last commit message.
+        await require("util").promisify(setTimeout)(1000); selene.DisableDebugMode(); // Wait for Github to update before fetching last commit message.
         
-        if(selene.LastCommit.includes("debugging"))
+        if(selene.LastCommit.includes("debugging") || args.includes("--debug"))
             return selene.EnableDebugMode();
 
         else if (selene.LastCommit.includes("hotfix"))
@@ -62,6 +64,9 @@ const OnReady =
 
         else if (selene.LastCommit.includes("NoAlert"))
             return console.log("Selene has started silently.");
+
+        else if (selene.LastCommit.includes("Restart"))
+            return console.log("Selene has restarted.");
 
         else if(selene.LastCommit !== "")
         {

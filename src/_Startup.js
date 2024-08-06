@@ -15,6 +15,9 @@ const client = new Client({
 
 // Register All Events \\
 require("./Events.js").forEach(event => {
+    if(event.name === "ready" && process.argv.includes("--debug"))
+        return client.once(event.name, (...args) => event.execute(...args, "--debug"));
+
     if (event.once) { client.once(event.name, (...args) => event.execute(...args)); } // Event ONCE
 
     else { client.on(event.name, (...args) => event.execute(...args)); } // Any Event
