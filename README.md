@@ -19,7 +19,7 @@ This command provides the user will all of Selene's commands, and how they can b
 ## 2. `/create`
 ### `/create ticket`: Lets members report other users that violate the rules of my server.
 ### `/create report`: Lets members create a feedback / bug report.
-<br /><br />
+<br />
 
 ## 3. `/set`
 ### `/set creator`: This allows my Cosmic Creators to set their personal creator link (link to their media's) so Selene can alert the Celestial Cartographers.
