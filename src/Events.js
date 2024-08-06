@@ -58,7 +58,7 @@ const OnReady =
         
         console.log(selene.LastCommit);
         
-        if(selene.LastCommit.includes("debugging") || args.includes("--debug"))
+        if(args.includes("--debug"))
             return selene.EnableDebugMode();
 
         else if (selene.LastCommit.includes("hotfix"))
