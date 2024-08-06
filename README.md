@@ -13,8 +13,8 @@ Selene is a discord bot that I have created to use for my personal server, to en
 
 # 🌑 Selene's Commands 🌑
 ## 1. `/help`
-This command provides the user will all of Selene's commands, and how they can be used.
-<br /><br />
+### This command provides the user with all of Selene's commands, and how they can be used.
+<br />
 
 ## 2. `/create`
 ### `/create ticket`: Lets members report other users that violate the rules of my server.
