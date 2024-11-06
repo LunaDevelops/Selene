@@ -80,33 +80,49 @@ class LunarAPI
 
     async GetLiveStreamers() {
         let streamers = [];
-    
+
         await new Promise((resolve, reject) => {
             this.#TAPI_VerifyToken(async () => {
                 try {
                     for (let username of this.#TwitchStreamerNames) {
-                        const RES = await axios.get(`https://api.twitch.tv/helix/streams?user_login=${encodeURIComponent(username)}`, {
+                        // PREREQUISITE -> HelixStreams.
+                        // This ensures the user EXISTS before running checks against them
+                        await axios.get("https://api.twitch.tv/helix/users?login=".concat(username), {
                             headers: {
                                 "Client-ID": this.#TAPI_CLID,
                                 "Authorization": `Bearer ${this.#TAPI_Token}`
                             }
-                        });
-    
-                        let StreamerData = RES.data.data[0];
-    
-                        if (StreamerData == null) {
-                            // Verify that streamer is no longer in ActiveStreamers
-                            if (this.ActiveStreamers.includes(username))
-                                this.ActiveStreamers = this.ActiveStreamers.filter(i => i !== username);
-                            continue;
-                        }
-    
-                        if (!this.ActiveStreamers.includes(StreamerData["user_login"])) {
-                            console.log(`Twitch_API: A user has come online! { ${StreamerData["user_login"]} }`);
-                            streamers.push(StreamerData);
-                            this.ActiveStreamers.push(StreamerData["user_login"]);
-                            continue;
-                        }
+                        })
+                        .then(async (res) => {
+                            if(!res.data?.data[0])
+                                return console.log(`Twitch_API: Encountered a problem, (User does not Exist: "${username}")`);
+
+                            // This gathers any streamer's data (if applicable) that is currently live on Twitch from the
+                            // active database of streamers from the LunarEclipse.
+                            await axios.get("https://api.twitch.tv/helix/streams?user_login=".concat(username), {
+                                headers: {
+                                    "Client-ID": this.#TAPI_CLID,
+                                    "Authorization": `Bearer ${this.#TAPI_Token}`
+                                }
+                            })
+                            .then(res => {
+                                let StreamerData = res.data?.data[0];
+
+                                if(!StreamerData) {
+                                    if(this.ActiveStreamers.includes(username))
+                                        this.ActiveStreamers = this.ActiveStreamers.filter(i => i !== username);
+                                    return;
+                                }
+
+                                if(!this.ActiveStreamers.includes(StreamerData["user_login"])) {
+                                    console.log(`Twitch_API: A user has come online! { ${StreamerData["user_login"]} }`);
+                                    streamers.push(StreamerData);
+                                    this.ActiveStreamers.push(StreamerData["user_login"]);
+                                    return;
+                                }
+                            });
+                        })
+                        .catch(err => console.error(`Twitch_API: Encountered an error. { ${err} }`));
                     }
                     resolve();
                 } catch (error) {
